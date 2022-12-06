@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS musicdata;
+CREATE DATABASE musicdata;
