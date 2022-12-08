@@ -1,7 +1,7 @@
 {
     "development": {
         "username": "root",
-        "password": "admin",
+        "password": "hi786123",
         "database": "musicdata",
         "host": "localhost",
         "dialect": "mysql"
