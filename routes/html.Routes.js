@@ -11,3 +11,5 @@ module.exports = function(app) {
     res.render("index", {
       msg: "My JukeBox!"
     });
+  });
+};
