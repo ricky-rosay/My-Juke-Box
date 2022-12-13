@@ -54,3 +54,85 @@ body {
     background-color: rgb(248, 243, 243);
     height:32rem;
   }
+
+  
+.logOutButton {
+    position: relative;
+    float: right;
+  }
+  
+  iframe {
+    z-index: 100;
+    margin-left: 30%;
+    margin-right: 30%;
+    position: relative;
+    top: 5%;
+  }
+  
+  span {
+    overflow: hidden;
+  }
+  
+  .test1 {
+    text-align:center;
+    height: 25rem;
+  }
+  
+  #songScreenTitle {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 5rem;
+    color: rgb(234, 241, 234)
+  }
+  
+  #mainTitle  {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 5rem;
+    color: rgb(255, 255, 255);
+    bottom: 325px;
+    position: relative;
+  }
+  
+  .firstButtons {
+    position: relative;
+    bottom: 325px;
+  }
+  
+  hr {
+    border: 1px solid rgb(255, 255, 255) !important;
+    
+  }
+  
+  h3, h2 {
+    color: aliceblue;
+  }
+  
+  .test1 .musicNote {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: -280px 60px 54px  -34px;
+    background:url("../images/small_note.png");
+    z-index:-10;
+    
+  }
+  
+  .test1 .spotify {
+    display: inline-block;
+    width: 40px;
+    height: 39px;
+    margin: -280px 60px 54px  -34px;
+    background:url("../images/spotify_best.jpg");
+    z-index:-20;
+    
+  }
+  
+  /* main container */
+  .container{
+      top:0px;
+      width:100%;
+      height:100%;
+      position:relative;
+      left:0%;
+      
+  }
+  
