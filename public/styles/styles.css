@@ -125,14 +125,5 @@ body {
     z-index:-20;
     
   }
-  
-  /* main container */
-  .container{
-      top:0px;
-      width:100%;
-      height:100%;
-      position:relative;
-      left:0%;
-      
-  }
+
   
