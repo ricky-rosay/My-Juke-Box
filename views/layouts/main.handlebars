@@ -78,6 +78,83 @@
         })
       }
 
+      function loginOrRegister() {
+        var initialGenre;
+
+        $(".initialChoice").on("click", function (event) {
+          initialGenre = $(this).attr("firstChoice");
+          console.log(initialGenre);
+        });
+
+        $("#registerButton").on("click", function (event) {
+          let credentialsAreGood = false;
+          event.preventDefault();
+          console.log("CreateNew button pressed")
+          let register = {
+            email: $("#newUserEmail").val(),
+            password: $("#newUserPassword").val(),
+          }
+          $("#firstStepNewAccount").modal('hide');
+          $.ajax("/", {
+            type: "POST",
+            data: register
+          }).then(function (response) {
+            console.log(JSON.stringify(response.id));
+            var forPut = {
+              genre: initialGenre,
+              id: JSON.stringify(response.id)
+            }
+            $.ajax("/api/start/like", {
+              type: "PUT",
+              data: forPut
+            }).then(function (response) {
+              $(".create-modal").append("<br><p id='createConfirm' style='color:green';>Account Created!  Please Login.</p>");
+            });
+          });
+        });
+
+        $(".firstButtons").on("click", function (event) {
+          $("#createConfirm").remove();
+          $("#loginFail").remove();
+        })
+
+        $("#loginButton").on("click", function (event) {
+          let credentialsAreGood = false;
+          event.preventDefault();
+          console.log("Login button pressed")
+          let login = {
+            email: $("#userEmail").val(),
+            password: $("#userPassword").val()
+          }
+          console.log(login.email);
+          console.log(login.password);
+          localStorage.setItem("test", "test!");
+          //find id using the above (ajax post/get for credentials), if successful
+          $.ajax("/api/login", {
+            type: "POST",
+            data: login
+          }).then(function (response) {
+            // associating the username and password with a id done on the back-end
+            // need to be sent back the id;
+            if (response.status === "error") {
+              $("#linebreak").remove();
+              $("#loginFail").remove();
+              $(".login-modal").append("<br id='linebreak'><p id='loginFail' style=color:red; class='error'>Incorrect Login Information</p>")
+            }
+            else {
+              console.log(response);
+              console.log("post went");
+              localStorage.setItem("id", response.id);
+              localStorage.setItem("username", response.username);
+              credentialsAreGood = true;
+              console.log(localStorage.getItem("id"));
+              window.location.href = "/main";
+            }
+          });
+
+        });
+      }
+
       });
     </script>
 </body>
