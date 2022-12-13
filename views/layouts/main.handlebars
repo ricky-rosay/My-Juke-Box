@@ -24,6 +24,28 @@
     <script type="text/javascript">
       $(document).ready(function () {
 
+        switch (windowLoc) {
+        case "/":
+
+          loginOrRegister();
+          break;
+
+        case "/main":
+          // this is already undefined when we get here
+          id = localStorage.getItem("id");
+          username = localStorage.getItem("username");
+          console.log(id);
+          $('#songScreenTitle').attr("style", "opacity: 0");
+          $('#test').attr("style", "opacity: 0");
+          $('#yourChoice').attr("style", "opacity: 0");
+          $('.bd-example').attr("style", "opacity: 0");
+          $('.changeButton').attr("style", "opacity: 0");
+          $('.logOutButton').attr("style", "opacity: 0");
+          $('.iframe').attr("style", "opacity: 0");
+          makeAChoice();
+          break;
+      }
+
       });
     </script>
 </body>
