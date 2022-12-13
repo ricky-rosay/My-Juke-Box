@@ -24,5 +24,47 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         defaultValue: 0
       },
+
+      rapLike: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
+      rapDislike: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
+      popLike: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
+      popDislike: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
+      countryLike: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
+      countryDislike: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
+      alternativeLike: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
+      alternativeDislike: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      }
+
     });
-}
+
+    User.associate = function(models) {
+        User.hasMany(models.Rating, {
+          onDelete: "cascade"
+        });
+      };
+    
+      return User;
+};
