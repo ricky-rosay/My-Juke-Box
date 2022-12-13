@@ -1,6 +1,12 @@
 var express = require("express");
 var exphbs = require("express-handlebars");
 
+var db = require("./models");
+var dbFill = require("./populateDB");
+
+var app = express();
+var PORT = process.env.PORT || 3001;
+
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -21,11 +27,19 @@ require("./routes/htmlRoutes")(app);
 
 var syncOptions = { force: true };
 
-var app = express();
-var PORT = process.env.PORT || 3001;
 
-app.listen(PORT, () => {
-    console.log(`API server now on port ${PORT}!`);
+db.sequelize.sync(syncOptions).then(function() {
+  app.listen(PORT, function() {
+    dbFill.populate(db);
+    console.log(
+      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+      PORT,
+      PORT
+    );
+
+    //We removed extra console logs from our code, but are retaining this one as an example of using chalk to highlight logs  
+    console.log(chalk.blue("Welcome!"));
   });
+});
 
 module.exports = app;
