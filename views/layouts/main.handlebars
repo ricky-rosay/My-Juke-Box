@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-      <link rel="stylesheet" href="/public/styles.css" media="screen" title="no title" charset="utf-8">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/styles/styles.css" media="screen" title="no title" charset="utf-8">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
@@ -16,16 +17,37 @@
     crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css?family=Kaushan+Script&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap" rel="stylesheet">
-
+  <title>Home Page</title>
+  <!-- not working for some reason-->
   <script src="js/index.js"></script>
-    <title>Home Page</title>
 </head>
-<body>
-    {{{body}}}
-    <script type="text/javascript">
-      $(document).ready(function () {
 
-        switch (windowLoc) {
+<body>
+  {{{body}}}
+
+  <script type="text/javascript">
+    //<div class="carousel-inner">
+    //          <div class="carousel-item active">
+    //            <img
+    //            src="http://getwallpapers.com/wallpaper/full/a/1/e/898705-gorgerous-nice-pictures-for-background-1920x1200-1080p.jpg"
+    //              class="d-block w-100 albumArt" id="art1" alt="...">
+    //            <div class="carousel-caption d-none d-md-block">
+    //              <h5 id="song1name"></h5>
+    //              <p id="song1artist"></p>
+    //              <p id="song1details"></p>
+    //              <button type="button" class="btn btn-success btn-lg likeButton">Like</button>
+    //              <button type="button" class="btn btn-danger btn-lg dislikeButton">Dislike</button>
+    //            </div>
+    //           </div>
+
+    $(document).ready(function () {
+      var windowLoc = $(location).attr('pathname');
+      // need this so that the appropriate JS fires when the right window is up. 
+
+      var choice;
+      //var id;
+
+      switch (windowLoc) {
         case "/":
 
           loginOrRegister();
@@ -220,7 +242,11 @@
             var carouselOuterDiv = $("<div class='carousel-item " + active + "''>");
             var imgLink = $("<img class='d-block w-100 albumArt' alt='Album Art'>");
             var carouselInnerDiv = $("<div class='carousel-caption d-none d-md-block'>");
-              var iframe = $("<iframe class='iframe' src='https://open.spotify.com/embed/track/" + trackID +
+
+            //<iframe src="https://open.spotify.com/embed/track/6EJiVf7U0p1BBfs0qqeb1f" 
+            // width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+            var iframe = $("<iframe class='iframe' src='https://open.spotify.com/embed/track/" + trackID +
               "width='300' height='380' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>")
 
             var songNameJquery = $("<h5></h5>");
@@ -310,6 +336,7 @@
             })
 
           })
+
           $(".dislikeButton").on("click", function () {
             var genre = $(this).parent().attr("genre");
             var songName = $(this).parent().attr("songName");
@@ -345,6 +372,7 @@
           })
         });
       }
+
       $(".IFWEDOFAVORITES-likeButton").on("click", function () {
         var favoriteSongName = $(this)
           .parent()
@@ -395,7 +423,8 @@
           }
         );
       });
-      });
-    </script>
+    });
+  </script>
 </body>
+
 </html>
