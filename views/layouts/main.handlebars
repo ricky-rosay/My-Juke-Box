@@ -26,20 +26,6 @@
   {{{body}}}
 
   <script type="text/javascript">
-    //<div class="carousel-inner">
-    //          <div class="carousel-item active">
-    //            <img
-    //            src="http://getwallpapers.com/wallpaper/full/a/1/e/898705-gorgerous-nice-pictures-for-background-1920x1200-1080p.jpg"
-    //              class="d-block w-100 albumArt" id="art1" alt="...">
-    //            <div class="carousel-caption d-none d-md-block">
-    //              <h5 id="song1name"></h5>
-    //              <p id="song1artist"></p>
-    //              <p id="song1details"></p>
-    //              <button type="button" class="btn btn-success btn-lg likeButton">Like</button>
-    //              <button type="button" class="btn btn-danger btn-lg dislikeButton">Dislike</button>
-    //            </div>
-    //           </div>
-
     $(document).ready(function () {
       var windowLoc = $(location).attr('pathname');
       // need this so that the appropriate JS fires when the right window is up. 
@@ -331,7 +317,6 @@
               // sending the genre to the back so we can add "1" to the (genre)Like
             }).then(function () {
               //console.log("trigger to next")
-              //$("#carouselExampleCaptions").carousel("next");
               Songs();
             })
 
@@ -362,7 +347,6 @@
               // sending the genre to the back so we can add "1" to the (genre)Dislike
             }).then(function () {
               //console.log("trigger to next")
-              //$("#carouselExampleCaptions").carousel("next");
               Songs();
             })
           })
@@ -398,21 +382,6 @@
         }).then(
           function () {
             console.log("added a new favorite song");
-            // Reload the page to get the updated list
-            // Scenario 1:  use Jquery to dynamically populate favorites list.  However this would still need a page refresh since
-            // we are getting data from the favorties last table
-            // Scenario 2:  have favorites be on another page- that still needs to be reloaded though and won't update if you
-            // have that page and the main page up at the same time 
-
-            // USE JQUERY TO RENDER- THESE SAME FAVORITE RESULTS SHOULD POPULATE ANYWAY (AND OVERWRITE THESE) WHEN YOU REFRESH THE PAGE
-            // location.reload();
-            //<li><span id="favSong1Name"><strong>Song Name:</strong></span>
-            //  <br>
-            //  <span id= "favSong1Artist"><strong>Artist: </strong></span>
-            //  <br>
-            //  <button class="btn btn-danger float-right delete">ｘ</button>
-            //</li>
-            //<br>
 
             $(".local-render")
               .append(
