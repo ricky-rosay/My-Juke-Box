@@ -156,6 +156,245 @@
         });
       }
 
+      function Songs() {
+        let count = 1;
+        //visual workaround only so that there is always a "space" that keep the logout buttons etc where they are during song change
+        var emptyDiv = $("<div id='emptyDiv' style='width:730px; height:512px; background-color:black;'</div>")
+        //visual workaround only so that there is always a "space" that keep the logout buttons etc where they are during song change
+        //$(".carousel-inner").empty();
+        $('.carousel-inner').find('*').not('.likeline').remove();
+        $(".carousel-inner").append(emptyDiv);
+        $('.iframe').attr("style", "opacity: 0");
+        $('.iframe').attr("style", "opacity: 1");
+        $('.iframe').css("-webkit-animation", "fadein 1s")
+
+        console.log("songs script running, user's choice is " + choice);
+        var apiRoute;
+        if (choice === "recommend") {
+          // Jeff & Kensen to verify (need to do api/recommended-songs/:id)
+          apiRoute = "api/recommended-song/" + id
+          $("#yourChoice").text("Welcome, " + username + "! you're currently viewing our list of recommend songs for you...")
+        }
+        else {
+          apiRoute = "api/random-song"
+          $("#yourChoice").text("Welcome, " + username + "! here's our list of random songs...")
+        }
+        $(".changeButton").on("click", function () {
+          location.reload();
+        })
+        $(".logOutButton").on("click", function () {
+          id = "";
+          window.location.href = "/";
+        })
+        $.ajax({
+          url: apiRoute,
+          type: "GET"
+        }).then(function (response) {
+          console.log(response)
+          // response is just one song
+          var songNameArray = [];
+          var artistNameArray = [];
+          var genreArray = [];
+          var idArray = [];
+
+          songNameArray.push(response.song);
+          artistNameArray.push(response.artist);
+          genreArray.push(response.genre);
+          idArray.push(response.id);
+
+          function makeCarousel(song, artist, genre, id) {
+            console.log(song, artist, genre, id);
+            if (count === 1) {
+              active = "active";
+            }
+            else {
+              active = "";
+            }
+            //var imageID = img;
+            var songName = song;
+            var artistName = artist;
+            var songGenre = genre;
+            var trackID = id + "'";
+            console.log(trackID);
+            // trackID should be dynamically populated by id instead of this string once spotify api is setup
+            var carouselOuterDiv = $("<div class='carousel-item " + active + "''>");
+            var imgLink = $("<img class='d-block w-100 albumArt' alt='Album Art'>");
+            var carouselInnerDiv = $("<div class='carousel-caption d-none d-md-block'>");
+              var iframe = $("<iframe class='iframe' src='https://open.spotify.com/embed/track/" + trackID +
+              "width='300' height='380' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe>")
+
+            var songNameJquery = $("<h5></h5>");
+            var artistNameJquery = $("<p></p>");
+            var songGenreJquery = $("<p></p>");
+            var whatGenre = $("<button type='button' id='whatButton' class='btn btn-secondary' data-toggle='tooltip' data-placement='bottom' title=" + genre + "!" + ">What Genre is this?</button>")
+            var likeButton = $("<button type='button' class='btn btn-success btn-lg likeButton'>Like</button>");
+            var dislikeButton = $("<button type='button' class='btn btn-danger btn-lg dislikeButton'>Dislike</button>");
+            var endDivs = $("</div></div>");
+
+            //imgLink.attr("src", imageID);
+
+            //songNameJquery.text(songName);
+            //artistNameJquery.text(artistName);
+            //songGenreJquery.text(songGenre);
+
+            //$(".carousel-inner").empty();
+            $('.carousel-inner').find('*').not('.likeline').remove();
+            $(".carousel-inner").append(carouselOuterDiv);
+            //carouselOuterDiv.append(imgLink);
+
+            carouselOuterDiv.append(carouselInnerDiv);
+            // doing this to add/subtract from Genre Score
+            carouselInnerDiv.attr("genre", songGenre);
+            carouselInnerDiv.attr("songName", songName);
+            carouselInnerDiv.attr("artistName", artistName);
+            // doing this to add/subtract from Genre Score
+            carouselInnerDiv.append(songNameJquery);
+            carouselInnerDiv.append(artistNameJquery);
+            carouselInnerDiv.append(songGenreJquery);
+            carouselInnerDiv.append(likeButton);
+            carouselInnerDiv.append(dislikeButton);
+            carouselInnerDiv.append(whatGenre);
+            carouselInnerDiv.append(endDivs);
+            function delay() {
+              carouselOuterDiv.append(iframe);
+            }
+            $('.likeButton').attr("style", "opacity: 0");
+            $('.dislikeButton').attr("style", "opacity: 0");
+            $('#whatButton').attr("style", "opacity: 0");
+
+            $('.likeButton').attr("style", "opacity: 1");
+            $('.dislikeButton').attr("style", "opacity: 1");
+            $('#whatButton').attr("style", "opacity: 1");
+
+            $('.likeButton').css("-webkit-animation", "fadeinNoSlide 1s");
+            $('.dislikeButton').css("-webkit-animation", "fadeinNoSlide 1s");
+            $('#whatButton').css("-webkit-animation", "fadeinNoSlide 1s");
+
+            setTimeout(delay, 300);
+
+            $('[data-toggle="tooltip"]').tooltip();
+          }
+
+          makeCarousel(songNameArray[count - 1], artistNameArray[count - 1], genreArray[count - 1], idArray[count - 1]);
+
+          $(".likeButton").on("click", function () {
+            var genre = $(this).parent().attr("genre");
+            var songName = $(this).parent().attr("songName");
+            var artistName = $(this).parent().attr("artistName");
+            console.log(genre);
+            var toBackEnd = {
+              song: songName,
+              genre: genre,
+              artist: artistName,
+              id: id,
+            }
+            // need to include id so backend can properly associate the like to the user's row
+            // maybe this TBDshould be its own route for adding a like to the genre?
+            var likeLineVertical = $("<span class='likeline'; style='background-color:green; position: absolute; z-index: 500; left: 115px;'></span>");
+            var likeLineHorizontal = $("<span class='likeline'; style='background-color:green; position: absolute; z-index: 500; left: 70px; '></span>");
+            $(".carousel-inner").append(likeLineVertical);
+            $(".carousel-inner").append(likeLineHorizontal);
+            likeLineVertical.css("-webkit-animation", "likelinevertical 1.5s");
+            likeLineHorizontal.css("-webkit-animation", "likelinehorizontal 1.5s");
+
+            count++;
+            Songs();
+            $.ajax("/api/decision/like", {
+              type: "PUT",
+              data: toBackEnd,
+              // sending the genre to the back so we can add "1" to the (genre)Like
+            }).then(function () {
+              //console.log("trigger to next")
+              //$("#carouselExampleCaptions").carousel("next");
+              Songs();
+            })
+
+          })
+          $(".dislikeButton").on("click", function () {
+            var genre = $(this).parent().attr("genre");
+            var songName = $(this).parent().attr("songName");
+            var artistName = $(this).parent().attr("artistName");
+            console.log(genre);
+            var toBackEnd = {
+              song: songName,
+              genre: genre,
+              artist: artistName,
+              id: id,
+            }
+            // need to include id so backend can properly associate the dislike to the user's row
+            // maybe this TBD should be its own route for adding a dislike to the genre?
+            var dislikeLine = $("<span class='likeline'; style='background-color:red; position: absolute; z-index: 500; left: 575px; '></span>");
+            $(".carousel-inner").append(dislikeLine);
+            dislikeLine.css("-webkit-animation", "dislikelinehorizontal 1.5s");
+
+            count++;
+            Songs();
+            $.ajax("/api/decision/dislike", {
+              type: "PUT",
+              data: toBackEnd,
+              // sending the genre to the back so we can add "1" to the (genre)Dislike
+            }).then(function () {
+              //console.log("trigger to next")
+              //$("#carouselExampleCaptions").carousel("next");
+              Songs();
+            })
+          })
+
+          $(".2ndChangeButton").on("click", function () {
+            location.reload();
+          })
+        });
+      }
+      $(".IFWEDOFAVORITES-likeButton").on("click", function () {
+        var favoriteSongName = $(this)
+          .parent()
+          .attr("songName");
+        var artistOfFavSong = $(this)
+          .parent()
+          .attr("artistName");
+        var detailsOfFavSong = $(this)
+          .parent()
+          .attr("extraDetails");
+
+        //post to DB - favorites table
+
+        var newFavoriteSong = {
+          name: favoriteSongName,
+          artist: artistOfFavSong,
+          details: detailsOfFavSong
+        }
+        $("#carouselExampleCaptions").carousel("next");
+        $.ajax("/api/favsong", {
+          type: "POST",
+          data: newFavoriteSong
+        }).then(
+          function () {
+            console.log("added a new favorite song");
+            // Reload the page to get the updated list
+            // Scenario 1:  use Jquery to dynamically populate favorites list.  However this would still need a page refresh since
+            // we are getting data from the favorties last table
+            // Scenario 2:  have favorites be on another page- that still needs to be reloaded though and won't update if you
+            // have that page and the main page up at the same time 
+
+            // USE JQUERY TO RENDER- THESE SAME FAVORITE RESULTS SHOULD POPULATE ANYWAY (AND OVERWRITE THESE) WHEN YOU REFRESH THE PAGE
+            // location.reload();
+            //<li><span id="favSong1Name"><strong>Song Name:</strong></span>
+            //  <br>
+            //  <span id= "favSong1Artist"><strong>Artist: </strong></span>
+            //  <br>
+            //  <button class="btn btn-danger float-right delete">ｘ</button>
+            //</li>
+            //<br>
+
+            $(".local-render")
+              .append(
+                "<li><strong>Song Name: </strong>" + newFavoriteSong.name +
+                "<br> <strong> Artist Name: </strong>" + newFavoriteSong.artist + "<br> " +
+                "<button type='button' class='btn btn-danger float-right delete' data-toggle='popover' title='Feature not coded yet' data-content='Deleting favorites still to be coded in.'>ｘ</button> </li> <br>"
+              )
+          }
+        );
+      });
       });
     </script>
 </body>
