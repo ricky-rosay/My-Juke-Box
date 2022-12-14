@@ -35,7 +35,13 @@ var genrePrompt = function(userIdResult) {
     altRate = [percentage, "Alternative"];
   
     // Display current scores
-    logRatings();
+    function logRatings() {
+      console.log("Rock like rating is: " + rockRate[0] + "%");
+      console.log("Rap like rating is: " + rapRate[0] + "%");
+      console.log("Pop like rating is: " + popRate[0] + "%");
+      console.log("Country like rating is: " + countryRate[0] + "%");
+      console.log("Alternative like rating is: " + altRate[0] + "%");
+   };
   
     // Store percentages and names for comparing
     var holder = [rockRate, rapRate, popRate, countryRate, altRate];
@@ -99,15 +105,6 @@ var genrePrompt = function(userIdResult) {
       percentage = percentage * 100;
       percentage = Math.round(percentage);
     }
-  
-    // This is helpful functionality for a more robust rating system in the future.
-    // function logRatings() {
-    //   console.log("Rock like rating is: " + rockRate[0] + "%");
-    //   console.log("Rap like rating is: " + rapRate[0] + "%");
-    //   console.log("Pop like rating is: " + popRate[0] + "%");
-    //   console.log("Country like rating is: " + countryRate[0] + "%");
-    //   console.log("Alternative like rating is: " + altRate[0] + "%");
-    // }
   
     return winnerName;
   };
