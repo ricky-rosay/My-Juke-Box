@@ -340,7 +340,7 @@
             $.ajax("/api/decision/dislike", {
               type: "PUT",
               data: toBackEnd,
-              // sending the genre to the back so we can add "1" to the (genre)Dislike
+            
             }).then(function () {
               //console.log("trigger to next")
               Songs();
