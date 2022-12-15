@@ -1,7 +1,7 @@
 {
-  "name": "node-handlebars-boilerplate",
+  "name": "my-juke-box",
   "version": "1.0.0",
-  "description": "Project 2 Starter",
+  "description": "Project 2",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,7 +10,7 @@
     "watch": "nodemon server.js",
     "test": "npm run lint && cross-env NODE_ENV=test mocha -u bdd --reporter spec --exit"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^3.0.0",
     "dotenv": "^8.0.0",
@@ -31,5 +31,14 @@
     "eslint-plugin-prettier": "^3.1.0",
     "mocha": "^6.1.4",
     "prettier": "^1.17.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricky-rosay/My-Juke-Box.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/ricky-rosay/My-Juke-Box/issues"
+  },
+  "homepage": "https://github.com/ricky-rosay/My-Juke-Box#readme"
 }
