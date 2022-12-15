@@ -15,11 +15,13 @@ To install this great applicatioon all you need to do is clone the repo, run "np
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative file path, add it to your README using the following syntax:
+<img width="1417" alt="Screen Shot 2022-12-15 at 4 38 48 PM" src="https://user-images.githubusercontent.com/111669764/207989621-4399b6a6-0ef1-46a1-8154-836aae9a2656.png">
+<img width="1418" alt="Screen Shot 2022-12-15 at 4 39 16 PM" src="https://user-images.githubusercontent.com/111669764/207989664-94090690-dd11-43fd-b165-4394570d07bb.png">
+<img width="1413" alt="Screen Shot 2022-12-15 at 4 39 34 PM" src="https://user-images.githubusercontent.com/111669764/207989688-03979de6-986c-482d-92e2-38ce1599aca1.png">
+<img width="1400" alt="Screen Shot 2022-12-15 at 4 40 04 PM" src="https://user-images.githubusercontent.com/111669764/207989710-9f86f26e-0049-4c1e-a9fe-abda206543f2.png">
 
-![alt text](assets/images/screenshot.png)
+
 
 ## Credits
 
